@@ -18,3 +18,9 @@ src/storage/app/public/photos/*
 
 # keep empty directories
 !.gitkeep
+
+# development files
+*.sublime-workspace
+
+#TEMP
+docker/php/*.tar.gz

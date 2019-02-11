@@ -1,7 +1,7 @@
 version: "3.2"
 
 services:
-  php:
+  php-fpm:
     build: ./docker/php/
     image: redisforlosers/hub-php:7.2
     volumes:
@@ -13,11 +13,12 @@ services:
     container_name: hub-php
     hostname: hub-php
     working_dir: /hub/
+    user: www-data
 
   apache:
-    image: httpd:2.4.33-alpine
+    image: httpd:2.2-alpine
     depends_on:
-      - php
+      - php-fpm
       - mysql
     ports:
       - "80:80"
@@ -27,6 +28,16 @@ services:
     container_name: hub-apache
     hostname: hub-apache
     working_dir: /hub
+
+  composer:
+    image: composer
+    volumes:
+      - ./src/:/hub/
+    working_dir: /hub/
+    command: ["composer", "install"]
+    container_name: hub-composer
+    hostname: hub-composer
+    user: "1000"
 
   mysql:
     image: mysql:5.6
@@ -39,15 +50,6 @@ services:
       MYSQL_PASSWORD: lpl_hub
     container_name: hub-mysql
     hostname: hub-mysql
-
-  composer:
-    image: composer
-    volumes:
-      - ./src/:/hub/
-    working_dir: /hub/
-    command: ["composer", "install"]
-    container_name: hub-composer
-    hostname: hub-composer
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
