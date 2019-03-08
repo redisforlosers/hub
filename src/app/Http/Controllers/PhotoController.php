@@ -55,9 +55,8 @@ class PhotoController extends Controller
         $photo->save();     // required in order to save relationships
 
         // associate patrons and confirm
-        if (isset($request->associatedPatrons)
-            && $patron_ids = array_filter(json_decode($request->associatedPatrons))) {
-            foreach ( $patron_ids as $patron_id) {
+        if (isset($request->associatedPatrons)) {
+            foreach ( $request->associatedPatrons as $patron_id) {
                 $photo->patron()->attach(Patron::find($patron_id));
                 $photo->save();
             }
