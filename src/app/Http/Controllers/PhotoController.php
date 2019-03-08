@@ -185,7 +185,7 @@ class PhotoController extends Controller
         // create breadcrumbs
         $breadcrumbs = [
             ['link' => route('home'), 'text' => 'Home'],
-            ['link' => route('patrons'), 'text' => 'Patrons'],
+            ['link' => route('photos'), 'text' => 'Photos'],
         ];
 
         $patrons = Patron::all()->sortByDesc('created_at');     // most recent first
