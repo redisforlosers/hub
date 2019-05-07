@@ -2,14 +2,15 @@
 
 namespace App;
 
-use App\Incident;
-use App\Photo;
 use App\Role;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Photo;
+use App\Incident;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 Use Carbon;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 

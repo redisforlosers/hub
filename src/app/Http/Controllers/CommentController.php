@@ -12,11 +12,7 @@ use App\Patron;
 
 class CommentController extends Controller
 {
-    // ensure user is authenticated in order to use this controller
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
+    
     public function store(StoreComment $request) {
         // gather the comment info
         $comment = new Comment([

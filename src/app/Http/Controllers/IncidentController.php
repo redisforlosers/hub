@@ -17,12 +17,7 @@ use App\Jobs\SendUpdatedIncidentEmail;
 
 class IncidentController extends Controller
 {
-    // ensure user is authenticated in order to use this controller
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
-    
+   
     public function index() {
         // set up the breadcrumbs for this action
         $breadcrumbs = [
