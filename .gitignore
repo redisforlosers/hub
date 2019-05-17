@@ -21,3 +21,5 @@ src/storage/app/public/photos/*
 
 # Local development files
 *.sublime-workspace
+docker/php/xdebug/
+docker/composer/cache/

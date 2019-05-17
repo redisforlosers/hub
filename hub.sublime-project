@@ -5,13 +5,27 @@
 			"path": "."
 		}
 	],
-	"xdebug":
-	[
+	"settings":
+	{
+		"xdebug":
 		{
-			"ide_key": "xdebug-sublime",
-			"port": 5000,
-			"debug": true,
-			"super_globals": false
+		    "ide_key": "xdebug_sublime",
+		    "port": 5000,
+		    "debug": true,
+		    "break_on_exception": [
+		        "Fatal Error",
+		        "Catchable Fatal Error",
+		        "Parse Error",
+		    ],
+		    "close_on_stop": true,
+		    "super_globals": true,
+		    "pretty_output": true,
+		    "debug_layout":
+		    {
+		        "cols": [0.0, 1.0, 1.0],
+		        "rows": [0.0, 0.7, 1.0],
+		        "cells": [[0, 0, 2, 1], [0, 1, 1, 2]]
+		    },
 		}
-	]
+	}
 }

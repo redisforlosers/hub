@@ -4,10 +4,12 @@ services:
   php:
     build:
       context: "./docker/php/"
-    image: "lplhub/php:7.2-fpm-alpine"
+    image: "lplhub/php:7.1-fpm-alpine"
     volumes:
       - "./src/:/hub/"
-      - "./docker/php/config/:/usr/local/php/conf.d/"
+      - "./docker/php/config/:/usr/local/etc/php/conf.d/"
+      - "./docker/php/xdebug/traces/:/xdebug/"
+      - "./docker/php/xdebug/logs/:/var/log/xdebug/"
     depends_on:
       - "mysql"
     container_name: "hub-php"
@@ -30,7 +32,7 @@ services:
     working_dir: "/hub/"
 
   mysql:
-    image: "mysql:5.6"
+    image: "mariadb"
     volumes:
       - "dbdata:/var/lib/mysql/"
     environment:
@@ -45,20 +47,23 @@ services:
     image: "composer"
     volumes:
       - "./src/:/hub/"
+      - "./docker/composer/cache/:/tmp/cache/"
     working_dir: "/hub/"
     command: ["install"]
     container_name: "hub-composer"
     hostname: "hub-composer"
-    user: "1000"
+    user: "www-data"
     
   queue-worker:
-    image: "lplhub/php:7.2-fpm-alpine"
+    image: "lplhub/php:7.1-fpm-alpine"
     container_name: "hub-queue-worker"
     hostname: "hub-queue-worker"
     working_dir: "/laravel/"
     volumes:
       - "./src/:/laravel/"
+    user: "www-data"
     command: "php artisan queue:work --tries=3"
+    restart: "always"
 
   phpmyadmin:
     image: "phpmyadmin/phpmyadmin"
